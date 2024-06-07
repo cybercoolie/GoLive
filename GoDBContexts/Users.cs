@@ -24,5 +24,7 @@ namespace GoLive.GoDBContexts
         [Required]
         public string Details { get; set; } = string.Empty;
 
+        public string Hostname { get; set;} = string.Empty;
+
     }
 }

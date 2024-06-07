@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GoLive.GoDBContexts;
+using Microsoft.Extensions.Hosting;
 
 namespace GoLive.Controllers
 {
@@ -47,6 +48,7 @@ namespace GoLive.Controllers
         // GET: Home/Create
         public IActionResult Create()
         {
+            TempData["Host"] = System.Environment.MachineName;
             return View();
         }
 
@@ -55,7 +57,7 @@ namespace GoLive.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Firstname,Lastname,Email,Phone,Details")] Users users)
+        public async Task<IActionResult> Create([Bind("Id,Firstname,Lastname,Email,Phone,Details,Hostname")] Users users)
         {
             if (ModelState.IsValid)
             {
@@ -63,6 +65,7 @@ namespace GoLive.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            
             return View(users);
         }
 
@@ -73,7 +76,7 @@ namespace GoLive.Controllers
             {
                 return NotFound();
             }
-
+            TempData["Host"] = System.Environment.MachineName;
             var users = await _context.Users.FindAsync(id);
             if (users == null)
             {
@@ -87,7 +90,7 @@ namespace GoLive.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Firstname,Lastname,Email,Phone,Details")] Users users)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Firstname,Lastname,Email,Phone,Details,Hostname")] Users users)
         {
             if (id != users.Id)
             {
