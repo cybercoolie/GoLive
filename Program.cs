@@ -4,8 +4,24 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<GoDbContext>(Options => Options.UseSqlServer(connectionString));
+//SQL Server
+var SQLServerconnectionString = builder.Configuration.GetConnectionString("SQLServerConnection");
+if(SQLServerconnectionString != null)
+{
+   builder.Services.AddDbContext<GoDbContext>(Options => Options.UseSqlServer(SQLServerconnectionString));
+}
+//PostgreSQl Server
+var PostgreSQlconnectionString = builder.Configuration.GetConnectionString("PostgreSQLConnection");
+if (PostgreSQlconnectionString != null)
+{
+    builder.Services.AddDbContext<GoDbContext>(Options => Options.UseNpgsql(PostgreSQlconnectionString));
+}
+//MySQL server
+var MySQlconnectionString = builder.Configuration.GetConnectionString("MySQLConnection");
+if (MySQlconnectionString != null)
+{
+    builder.Services.AddDbContext<GoDbContext>(Options => Options.UseMySql(MySQlconnectionString, ServerVersion.AutoDetect(MySQlconnectionString)));
+}
 // Add services to the container.
 
 
