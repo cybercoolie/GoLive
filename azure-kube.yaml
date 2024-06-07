@@ -1,0 +1,11 @@
+﻿apiVersion: v1
+kind: Pod
+metadata:  
+  labels:
+    run: golive
+  name: golive
+  namespace: default  
+spec:
+  containers:
+  - image: ramjeevp/cybercoolie:latest    
+    name: golive

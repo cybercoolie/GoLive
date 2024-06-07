@@ -1,0 +1,26 @@
+﻿steps:
+- name: 'gcr.io/cloud-builders/docker'
+  id: Build
+  args:
+  - 'build'
+  - '-t'
+  - 'us-east1-docker.pkg.dev/intense-optics-421201/my-repo/golive:v3'
+  - '.'
+
+- name: 'gcr.io/cloud-builders/docker'
+  id: Push
+  args:
+  - 'push'
+  - 'us-east1-docker.pkg.dev/intense-optics-421201/my-repo/golive:v3'
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: Deploy
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+         PROJECT=$$(gcloud config get-value core/project)          
+         gke-gcloud-auth-plugin --version
+         export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+         gcloud container clusters get-credentials "mykubecls01" --project "intense-optics-421201"  --zone "us-central1"  
+         kubectl apply -f deploy.yaml
