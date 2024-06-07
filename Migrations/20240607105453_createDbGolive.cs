@@ -4,7 +4,7 @@
 
 namespace GoLive.Migrations
 {
-    public partial class createGoliveDB : Migration
+    public partial class createDbGolive : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

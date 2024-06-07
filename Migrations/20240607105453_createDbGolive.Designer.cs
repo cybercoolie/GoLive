@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoLive.Migrations
 {
     [DbContext(typeof(GoDbContext))]
-    [Migration("20240607080017_createGoliveDB")]
-    partial class createGoliveDB
+    [Migration("20240607105453_createDbGolive")]
+    partial class createDbGolive
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
