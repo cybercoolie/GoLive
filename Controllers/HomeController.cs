@@ -158,5 +158,10 @@ namespace GoLive.Controllers
         {
           return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
     }
 }
