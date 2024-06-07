@@ -1,7 +1,13 @@
+using GoLive.GoDBContexts;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<GoDbContext>(Options => Options.UseSqlServer(connectionString));
+// Add services to the container.
+
 
 var app = builder.Build();
 
