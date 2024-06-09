@@ -35,7 +35,7 @@ namespace GoLive.GoDBContexts
                 optionsBuilder.UseMySql(MySQlconnectionString, ServerVersion.AutoDetect(MySQlconnectionString));
             }
         }
-        public DbSet<Users> users { get; set; } 
+        public DbSet<Users> Users { get; set; } 
 
     }
 }

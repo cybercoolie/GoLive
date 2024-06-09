@@ -22,20 +22,20 @@ namespace GoLive.Controllers
         // GET: Home
         public async Task<IActionResult> Index()
         {
-              return _context.users != null ? 
-                          View(await _context.users.ToListAsync()) :
+              return _context.Users != null ? 
+                          View(await _context.Users.ToListAsync()) :
                           Problem("Entity set 'GoDbContext.users'  is null.");
         }
 
         // GET: Home/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.users == null)
+            if (id == null || _context.Users == null)
             {
                 return NotFound();
             }
 
-            var users = await _context.users
+            var users = await _context.Users
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (users == null)
             {
@@ -72,12 +72,12 @@ namespace GoLive.Controllers
         // GET: Home/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.users == null)
+            if (id == null || _context.Users == null)
             {
                 return NotFound();
             }
             TempData["Host"] = System.Environment.MachineName;
-            var users = await _context.users.FindAsync(id);
+            var users = await _context.Users.FindAsync(id);
             if (users == null)
             {
                 return NotFound();
@@ -123,12 +123,12 @@ namespace GoLive.Controllers
         // GET: Home/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.users == null)
+            if (id == null || _context.Users == null)
             {
                 return NotFound();
             }
 
-            var users = await _context.users
+            var users = await _context.Users
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (users == null)
             {
@@ -143,14 +143,14 @@ namespace GoLive.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.users == null)
+            if (_context.Users == null)
             {
                 return Problem("Entity set 'GoDbContext.Users'  is null.");
             }
-            var users = await _context.users.FindAsync(id);
+            var users = await _context.Users.FindAsync(id);
             if (users != null)
             {
-                _context.users.Remove(users);
+                _context.Users.Remove(users);
             }
             
             await _context.SaveChangesAsync();
@@ -159,7 +159,7 @@ namespace GoLive.Controllers
 
         private bool UsersExists(int id)
         {
-          return (_context.users?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
         public IActionResult Privacy()
