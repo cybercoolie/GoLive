@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+
+builder.Configuration.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").AddEnvironmentVariables();
+
 //SQL Server
 var SQLServerconnectionString = builder.Configuration.GetConnectionString("SQLServerConnection");
 if(SQLServerconnectionString != null)
