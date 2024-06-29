@@ -22,9 +22,17 @@ namespace GoLive.Controllers
         // GET: Home
         public async Task<IActionResult> Index()
         {
-              return _context.Users != null ? 
+            try
+            {
+                return _context.Users != null ?
                           View(await _context.Users.ToListAsync()) :
                           Problem("Entity set 'GoDbContext.users'  is null.");
+            }  
+            catch(Exception ex)
+            {
+                TempData["Sqlerror"] = ex.ToString();
+                return RedirectToAction("Sqlerror", "Home");
+            }
         }
 
         // GET: Home/Details/5
@@ -164,6 +172,10 @@ namespace GoLive.Controllers
 
         public IActionResult Privacy()
         {
+            return View();
+        }
+        public IActionResult Sqlerror()
+        {            
             return View();
         }
     }
